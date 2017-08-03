@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculater</title>
+        <!-- <link rel="stylesheet" href="css/bootstrap2.min.css" /> -->
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="http://vitalets.github.io/angular-xeditable/dist/css/xeditable.css" />
+        <!-- <link rel="stylesheet" href="./assets/stylesheets/bootstrap-responsive.min.css" /> -->
+        <link rel="stylesheet" href="css/calc2.css" />
+        <script src="js/angular.min.js"></script>
+        <script src="http://vitalets.github.io/angular-xeditable/dist/js/xeditable.js"></script>
+        <script src="js/jquery-3.1.1.js"></script>
+    </head>
+    <body>
+        <div ng-app="app" ng-controller="Ctrl">
+            <h4>Angular-xeditable Text (Bootstrap 3)</h4>
+            <span editable-text="user.name">{{ user.name || 'empty' }}</span>
+        </div>
+        <script>
+			var app = angular.module("app", ["xeditable"]);
+			/*app.run(function(editableOptions) {
+				editableOptions.theme = 'bs3';
+			});*/
+			app.controller('Ctrl', function($scope) {
+				$scope.user = {
+					name: 'Abhijeet'
+				};
+			});
+        </script>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>Angular Filters</head>
+<body ng-app="myApp" ng-controller="homeController">
+	<ul>
+		<li ng-repeat="(key, value) in players | groupBy: 'team'">
+		Group name: {{ key }}
+			<ul>
+				<li ng-repeat="player in value">player: {{ player.name }}</li>
+			</ul>
+		</li>
+	</ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.4.7/angular-filter.js"></script>
+    <script>
+        var myApp = angular.module('myApp', ['angular.filter']);
+        myApp.controller('homeController', function($scope){
+			$scope.players = [
+				{name: 'Gene', team: 'alpha'},
+				{name: 'George', team: 'beta'},
+				{name: 'Steve', team: 'gamma'},
+				{name: 'Paula', team: 'beta'},
+				{name: 'Scruath', team: 'gamma'}
+			];
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Angular JS To do app</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="../css/viewport-bug-workaround.css" rel="stylesheet">
+        <link href="../css/theme.css" rel="stylesheet">
+        <link href="index.css" rel="stylesheet">
+        <link href="base.css" rel="stylesheet">
+        <!-- -->
+        <script src="../js/jquery-3.1.1.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/docs.min.js"></script>
+        <script src="../js/angular.min.js"></script>
+        <!-- <style type="text/css">
+            #todo-list li .toggle {
+                text-align: center;
+                width: 40px;
+                /* auto, since non-WebKit browsers doesn't support input styling */
+                height: auto;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto 0;
+                border: none; /* Mobile Safari */
+                -webkit-appearance: none;
+                appearance: none;
+            }
+
+            #todo-list li .toggle:after {
+                content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
+            }
+
+            #todo-list li .toggle:checked:after {
+                content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+            }
+
+            @media screen and (-webkit-min-device-pixel-ratio:0) {
+                #toggle-all,
+                #todo-list li .toggle {
+                    background: none;
+                }
+
+                #todo-list li .toggle {
+                    height: 40px;
+                }
+
+                #toggle-all {
+                    -webkit-transform: rotate(90deg);
+                    transform: rotate(90deg);
+                    -webkit-appearance: none;
+                    appearance: none;
+                }
+            }
+
+        </style> -->
+    </head>
+    <body ng-app="app">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron"></div>
+        <section id="todoapp" ng-controller="appController">
+            <header id="header">
+                <h1>Todo List</h1>
+                <form id="todo-form" ng-submit="addTodo()">
+                    <input id="new-todo" placeholder="What needs to be done?" ng-model="newTodo" ng-disabled="saving" autofocus>
+                </form>
+            </header>
+            <section id="main" ng-show="todos.length" ng-cloak>
+                <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+                <label for="toggle-all">Mark all as complete</label>
+                <ul id="todo-list">
+                    <!-- <li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
+                            <label ng-dblclick="editTodo(todo)">{{todo.title}}</label>
+                            <button class="destroy" ng-click="removeTodo(todo)"></button>
+                        </div>
+                        <form ng-submit="saveEdits(todo, 'submit')">
+                            <input class="edit" ng-trim="false" ng-model="todo.title" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
+                        </form>
+                    </li> -->
+                     <li ng-repeat="todo in todos" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
+                        <div class="view">
+                            <input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggleCompleted(todo)">
+                            <label ng-dblclick="editTodo(todo)">{{todo.Name}}</label>
+                            <button class="destroy" ng-click="removeTodo(todo)"></button>
+                        </div>
+                        <form ng-submit="saveEdits(todo, 'submit')">
+                            <input class="edit" ng-trim="false" ng-model="todo.Name" todo-escape="revertEdits(todo)" ng-blur="saveEdits(todo, 'blur')" todo-focus="todo == editedTodo">
+                        </form>
+                    </li>
+                </ul>
+            </section>
+            <footer id="footer" ng-show="todos.length" ng-cloak>
+                <span id="todo-count"><strong>{{remainingCount}}</strong>
+                    <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+                </span>
+                <ul id="filters">
+                    <li>
+                        <a ng-class="{selected: status == ''} " href="#/">All</a>
+                    </li>
+                    <li>
+                        <a ng-class="{selected: status == 'active'}" href="#/active">Active</a>
+                    </li>
+                    <li>
+                        <a ng-class="{selected: status == 'completed'}" href="#/completed">Completed</a>
+                    </li>
+                </ul>
+                <button id="clear-completed" ng-click="clearCompletedTodos()" ng-show="completedCount">Clear completed</button>
+            </footer>
+        </section>
+        <script>
+            var app = angular.module('app', []);
+            app.controller('appController', ['$scope','$http', function($scope, $http){
+                //$http.get("state.json").then(function(response){
+                $http.get("todo.json").then(function(response){
+
+                    //get.log(response);
+                    console.log(response.data);
+                    $scope.todos = response.data.Data;
+                });
+            }]);
+        </script>
+    </body>
+</html>

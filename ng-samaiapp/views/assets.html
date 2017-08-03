@@ -1,0 +1,97 @@
+<style type="text/css">
+    .img-responsive {
+        margin: 0 auto;
+    }
+</style>
+<div class="modal fade" id="assetdetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" ng-bind="detailasset.asset_name"></h4>
+            </div>
+            <div class="box box-widget">
+                <div class="box-body">
+                    <div class="attachment-block clearfix">
+                        <img class="img-responsive" src="{{detailasset.asset_path}}" alt="Attachment Image" width="300" height="300">
+                        <div class="attachment-pushed">
+                            <div class="attachment-text" ng-bind="detailasset.description"></div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btn-xs" ng-show="!detailasset.is_favorite" ng-click="likeAndFav(detailasset.id, 'favorite')">
+                        <i class="glyphicon glyphicon-heart-empty"></i> Mark As Favourite
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs" ng-show="detailasset.is_favorite" disabled="true">
+                        <i class="glyphicon glyphicon-heart"></i> Favourited Already
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs" ng-click="likeAndFav(detailasset.id, 'like')">
+                        <i class="fa fa-thumbs-o-up"></i> Like
+                    </button>
+                    <span class="pull-right text-muted">{{detailasset.likes_count}} likes - {{detailasset.comments_count}} comments</span>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer box-comments">
+                    <div ng-show="detailasset.comments_count>0">
+                        <div class="box-comment" ng-repeat="com in detailasset.comments">
+                            <img class="img-circle img-sm" src="{{detailasset.base_path+com.profile_pic}}" alt="User Image">
+                            <div class="comment-text">
+                                <span class="username">
+                                    {{com.postedby}}<span class="text-muted pull-right" ng-bind="postedon"></span>
+                                </span>
+                                {{com.comment}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-footer -->
+                <div class="box-footer">
+                    <form ng-submit="postComment(detailasset.id)">
+                        <div class="img-push input-group">
+                            <input type="text" name="message" placeholder="Type Your Comments ..." class="form-control" ng-model="text">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li ng-class="{true:'active', false:''}[key==0]" ng-repeat="(key,value) in category">
+                <a href="#items" data-toggle="tab" ng-click="setCategory(value.id)" ng-bind="value.name"></a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="row" id="items">
+                <div class="col-xs-12" ng-repeat="state in states">
+                    <h4 class="page-header" ng-bind="state.name"></h4>
+                    <div class="col-md-3 owl-carousel" ng-repeat="(key, item) in assetByStates(state.id, filterSecId(assets))">
+                        <div class="info-box bg-aqua" ng-show="item.lock==0" data-toggle="modal" data-target="#assetdetail" ng-click="getAsset(item.asset_id)">
+                            <span class="info-box-icon bg-aqua"><img src="{{item.thumbnail}}"></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text" ng-bind="item.asset_name"></span>
+                                <span>{{item.description.substring(0,20) + "..." }}</span>
+                                <span ng-bind="item.st_name"></span>
+                            </div>
+                        </div>
+                        <div class="info-box box box-danger box-solid" ng-show="item.lock==1">
+                            <div class="box-header">
+                                <h3 class="box-title">This asset is paid item</h3>
+                            </div>
+                            <div class="box-body">
+                                {{item.asset_name}} in State {{item.st_name}}
+                            </div>
+                            <div class="overlay">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

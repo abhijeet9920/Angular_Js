@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Calculator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <script src="js/angular.min.js"></script>
+        <script src="js/jquery-3.1.1.js"></script>
+        <style type="text/css">
+        	input.ng-invalid.ng-touched {
+		    	border-color: #ff0039;
+		  	}
+        </style>
+    </head>
+    <body>
+        <div id="wrap" >
+            <div class="container">
+                <div class="page-header">
+                    <h1>Angular Calculator</h1>
+                </div>  
+            </div>
+        </div>
+        <div id="footer">
+            <div class="container">
+		        <div ng-app="calculater">
+		        	<div ng-controller="calculaterController">
+		        		<form name="calcform">
+							<div class="form-group">
+							    <label for="number1">1st Number :</label>
+							    <input type="text" class="form-control" id="number1" ng-model="number1" required validatenumber>
+							</div>
+							<div class="form-group">
+							    <label for="number2">2nd Number :</label>
+							    <input type="text" class="form-control" id="number2" ng-model="number2" required validatenumber>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-success" ng-click="add()" ng-disabled="calcform.$invalid">Add</button>
+								<button class="btn btn-success" ng-click="sub()" ng-disabled="calcform.$invalid">Substract</button>
+								<button class="btn btn-success" ng-click="mul()" ng-disabled="calcform.$invalid">Multiply</button>
+								<button class="btn btn-success" ng-click="divi()" ng-disabled="calcform.$invalid">Division</button>
+								<button class="btn btn-success" ng-click="reset()">Reset</button>
+							</div>
+							<div class="form-group" ng-show="ifshow">
+							    The result of <span ng-bind="operation"></span> on <span ng-bind="number1"></span> and <span ng-bind="number2"></span> is <span ng-bind="result"></span>
+							</div>
+						</form>
+		        	</div>
+				</div>
+            </div>
+        </div>
+        <script>
+         	var calculater = angular.module("calculater", []);
+         	calculater.directive('validatenumber', function() {
+			    return{
+			      	restrict: 'A',
+			      	require: 'ngModel',
+				    link:function(scope, element, attr, ctrl) {
+				        function customValidator(ngModelValue) {
+						    if (/^-?\d+$/.test(ngModelValue)) {
+						        ctrl.$setValidity('numvalidater', true);
+						    } else {
+						        ctrl.$setValidity('numvalidater', false);
+						    }
+						    return ngModelValue;
+						}
+						ctrl.$parsers.push(customValidator);  
+				    }
+			    };
+			});
+	        calculater.controller('calculaterController', function($scope) {
+	        	$scope.ifshow = false;
+	        	$scope.number1 = 0;
+	        	$scope.number2 = 0;
+	            $scope.add = function(){
+	            	var num1 = $scope.number1;
+	            	var num2 = $scope.number2;
+	            	var add = parseInt(num1)+parseInt(num2);
+	            	$scope.operation = "addition";
+	            	$scope.result = add;
+	            	$scope.ifshow = true;
+	            };
+	            $scope.sub = function(){
+	            	var num1 = $scope.number1;
+	            	var num2 = $scope.number2;
+	            	var sub = parseInt(num1)-parseInt(num2);
+	            	$scope.operation = "substraction";
+	            	$scope.result = sub;
+	            	$scope.ifshow = true;
+	            };
+	            $scope.mul = function(){
+	            	var num1 = $scope.number1;
+	            	var num2 = $scope.number2;
+	            	var mul = parseInt(num1)*parseInt(num2);
+	            	$scope.operation = "multiplication";
+	            	$scope.result = mul;
+	            	$scope.ifshow = true;
+	            };
+	            $scope.divi = function(){
+	            	var num1 = $scope.number1;
+	            	var num2 = $scope.number2;
+	            	var divi = parseInt(num1)/parseInt(num2);
+	            	if(num2 != 0){
+		            	$scope.operation = "division";
+		            	$scope.result = divi;
+		            	$scope.ifshow = true;
+	            	}
+	            	else{
+	            		alert("Divisor must be greter than 0");
+						$scope.number2 = 1;
+						$scope.ifshow = false
+	            	}
+	            };
+	            $scope.reset = function(){
+	            	$scope.number1 = 0;
+					$scope.number2 = 0;
+					$scope.ifshow = false;
+					$scope.calcform.$setValidity();
+	            }
+	        });
+      	</script>
+    </body>
+</html>

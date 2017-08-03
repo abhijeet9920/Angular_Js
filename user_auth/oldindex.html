@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	    <link href="../css/viewport-bug-workaround.css" rel="stylesheet">
+	    <link href="../css/theme.css" rel="stylesheet">
+
+	    <!--  Scripts started here-->
+	    <script src="../js/jquery-3.1.1.js"></script>
+	    <script src="../js/bootstrap.min.js"></script>
+	    <script src="../js/docs.min.js"></script>
+	    <script src="../js/angular.min.js"></script>
+	    <script src="../js/angular-cookies.js"></script>
+	    <script src="../js/jquery.bpopup.min.js"></script>
+	    <script src="auth.js"></script>
+	    <style type="text/css">
+	    	input.ng-invalid.ng-touched {
+		    	border-color: #ff0039;
+		  	}
+	    </style>
+	</head>
+	<body ng-app="home">
+	    <div ng-controller="homeController">
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div ng-show="iflogin">
+		            <div class="navbar-header">
+		                <a class="navbar-brand" href="#">Welcome <span ng-bind="username"></span></a>
+		            </div>
+		            <button type="button" class="navbar-brand btn btn-primary btn-link pull-right" ng-click="logout()">Logout</button>
+				</div>
+	        </nav>
+			<div id="wrap" class="jumbotron">
+	            <div class="container">
+	                <span ng-hide="iflogin"><h3>Angular Login</h3></span>  
+	                <span ng-show="iflogin"><h3>Success</h3></span>  
+	            </div>
+	        </div>
+	        <div class="container">
+	        	<div class="alert alert-danger" ng-show="invalidlogin"><span ng-bind="msg"></span></div>
+	        	<div class="container">
+	        		<div class="row" ng-hide="iflogin">
+		        		<form name="loginform" method="POST" ng-submit="login()">
+							<div class="form-group">
+							    <label for="username">Username :</label>
+							    <input type="text" class="form-control" id="username" ng-model="username" required validatenumber>
+							</div>
+							<div class="form-group">
+							    <label for="password">Password :</label>
+							    <input type="password" class="form-control" id="password" ng-model="password" required validatenumber>
+							</div>
+							<div class="form-group">
+								<input type="submit" class="btn btn-success" ng-disabled="loginform.$invalid" value="Login">
+							</div>
+						</form>
+					</div>
+		            <div class="row" ng-show="iflogin">
+		                <h2>Available Examples</h2>
+		                <ul class="list-group">
+		                    <li class="list-group-item"><a href="/calc.html" target="_blank">Calculater</a></li>
+		                </ul>
+		            </div>
+	            </div>
+	            <footer>
+	                <p>&copy; 2016 Company, Inc.</p>
+	            </footer>
+	        </div>
+        </div>
+        <script>
+        	var home = angular.module('home', ['ngCookies', '$routeProvider']);
+			home.controller('homeController', ['$scope', '$http', '$cookies', function($scope, $http, $cookies){
+				var logged_user = $cookies.get('logged_user');
+				if(logged_user){
+					user = angular.fromJson(logged_user);
+					$scope.username = user.username;
+					$scope.iflogin = true;
+			    	$scope.invalidlogin = false;
+				}else{
+			    	$scope.iflogin = false;
+			    	$scope.invalidlogin = false;
+				}
+				$scope.login = function(){
+					$http({
+					  	method: 'POST',
+					  	//url: 'http://local33.imoves.com/api/login',
+					  	url: 'http://10.0.11.33/imoves/public/index.php/api/login',
+					  	headers: {'Content-Type': 'application/json'},
+					  	data:{"email":$scope.username, "password":$scope.password}
+					}).then(
+						function successCallback(success) {
+							$scope.iflogin = true
+							$scope.invalidlogin = false;
+							var response = success.data
+							var user = response.data;
+							$cookies.put('logged_user', JSON.stringify(user));
+						},
+						function errorCallback(error) {
+							$scope.iflogin = false
+							$scope.invalidlogin = true;
+							$scope.msg = "Invalid credentials";
+						}
+					);
+				},
+				$scope.logout = function(){
+					$scope.iflogin = false;
+					$cookies.remove('logged_user');
+				}
+			}]);
+        </script>
+	</body>
+</html>

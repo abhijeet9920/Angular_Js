@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="register-box" id="register">
+                <div class="register-logo">Register</div>
+                <div class="register-box-body">
+                    <p class="login-box-msg">Register a new membership</p>
+                    <form name="registerform" method="POST" ng-submit="postRegister()">
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" placeholder="Full name" required>
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="email" class="form-control" placeholder="Email" required>
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="password" class="form-control" placeholder="Password" required>
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="password" class="form-control" placeholder="Retype password" required>
+                            <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="registerform.$invalid">Register</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.form-box -->
+            </div>
+        </div>
+        <div class="vertical-divider"><p>OR</p></div>
+        <div class="col-xs-6">
+            <div class="login-box" id="login">
+                <div class="login-logo">Login</div>
+                <div class="login-box-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
+                    <form name="loginform" method="POST" ng-submit="postLogin()">
+                        <div class="form-group has-feedback">
+                            <input ng-model="log_email" type="text" class="form-control" placeholder="Email" required email>
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input ng-model="log_pwd" type="password" class="form-control" placeholder="Password" required="">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat" ng-disabled="loginform.$invalid">Sign In</button>
+                        </div>
+                    </form>
+                    <div class="social-auth-links text-center">
+                        <p>- OR -</p>
+                        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
+                        Facebook</a>
+                        <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
+                        Google+</a>
+                    </div>
+                    <!-- /.social-auth-links -->
+                    <a href="#">I forgot my password</a><br>
+                </div>
+                <!-- /.login-box-body -->
+            </div>
+        </div>
+    </div>
+</div>

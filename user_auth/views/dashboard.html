@@ -1,0 +1,16 @@
+<div class="row">
+	<div ng-hide="iflogin">
+		<div>You must be logged in to view your dashboard page</div>
+	</div>
+	<div ng-show="iflogin">
+		Welcome {{user.username}}!!!
+		{{user|json}}
+		<div>
+			<!-- <p>Name : {{user.name}}</p> -->
+			<p>Name : {{user.first_name}}</p>
+			<p>Email : {{user.email}}</p>
+			<p>Username : {{user.username}}</p>
+			<p><img src="{{user.avatar}}" class="img-thumbnail"></p>
+		</div>
+	</div>
+</div>

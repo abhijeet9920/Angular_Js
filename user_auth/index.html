@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+	    <title>AngularJS Routing example</title>
+	    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	    <style>
+			body {
+			  	padding-top: 10px;
+			  	background-color: #F5F5F5;
+			}
+			div.btn-app {
+			    height: 25px;
+			}
+	    </style>
+  	</head>
+  	<head>
+		<title>Home</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+	    <link href="../css/bootstrap.min.css" rel="stylesheet">
+	    <link href="../css/viewport-bug-workaround.css" rel="stylesheet">
+	    <link href="../css/theme.css" rel="stylesheet">
+
+	    <script src="../js/jquery-3.1.1.js"></script>
+	    <script src="../js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
+	    <script src="auth.js"></script>
+	    <script src="controller.js"></script>
+	    <style type="text/css">
+	    	input.ng-invalid.ng-touched {
+		    	border-color: #ff0039;
+		  	}
+	    </style>
+	</head>
+	<body ng-app="myApp">
+		<div>
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+	        </nav>
+			<div id="wrap" class="jumbotron">
+	            <div class="container">
+	                <span><h3>Angular Login</h3></span>  
+	                <span><h3>Success</h3></span>  
+	            </div>
+	        </div>
+	        <div class="container">
+	        	<div class="alert alert-danger" ng-show="invalidlogin"><span ng-bind="msg"></span></div>
+	        	<div class="row">
+	        		<div class="col-md-3">
+					   	<ul class="nav">
+							<li><a href="#home"> Home </a></li>
+							<li><a href="#login"> Login </a></li>
+							<li><a href="#dashboard"> Dashboard </a></li>
+						</ul>
+					</div>
+					<div class="col-md-9">
+					  	<ng-view></ng-view>
+					</div>
+	        	</div>
+	            <footer>
+	                <p>&copy; 2016 Company, Inc.</p>
+	            </footer>
+	        </div>
+        </div>
+  	</body>
+</html>

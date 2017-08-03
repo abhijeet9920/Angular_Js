@@ -1,0 +1,94 @@
+<style type="text/css">
+    .img-responsive {
+        margin: 0 auto;
+    }
+</style>
+<div class="modal fade" id="paiddetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" ng-bind="detailpaid.name"></h4>
+            </div>
+            {{ detailpaid | json }}
+            <div class="box box-widget">
+                <div class="box-body">
+                    <div class="attachment-block clearfix">
+                        <img class="img-responsive" src="{{detailpaid.thumbnail}}" alt="Attachment Image" width="300" height="300">
+                        <div class="attachment-pushed">
+                            <div class="attachment-text" ng-bind="detailpaid.description"></div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btn-xs" ng-show="!detailasset.is_favorite" ng-click="likeAndFav(detailasset.id, 'favorite')">
+                        <i class="glyphicon glyphicon-heart-empty"></i> Mark As Favourite
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs" ng-show="detailasset.is_favorite" disabled="true">
+                        <i class="glyphicon glyphicon-heart"></i> Favourited Already
+                    </button>
+                    <button type="button" class="btn btn-default btn-xs" ng-click="likeAndFav(detailasset.id, 'like')">
+                        <i class="fa fa-thumbs-o-up"></i> Like
+                    </button>
+                    <span class="pull-right text-muted">{{detailasset.likes_count}} likes - {{detailasset.comments_count}} comments</span>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer box-comments">
+                    <div ng-show="detailasset.comments_count>0">
+                        <div class="box-comment" ng-repeat="com in detailasset.comments">
+                            <img class="img-circle img-sm" src="{{detailasset.base_path+com.profile_pic}}" alt="User Image">
+                            <div class="comment-text">
+                                <span class="username">
+                                    {{com.postedby}}<span class="text-muted pull-right" ng-bind="postedon"></span>
+                                </span>
+                                {{com.comment}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-footer -->
+                <div class="box-footer">
+                    <form ng-submit="postComment(detailasset.id)">
+                        <div class="img-push input-group">
+                            <input type="text" name="message" placeholder="Type Your Comments ..." class="form-control" ng-model="text">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary btn-flat">Send</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-repeat="item in paid.data">
+    <div class="col-md-6">
+        <div class="box box-widget" data-toggle="modal" data-target="#paiddetail" ng-click="getPaid(item.id)">
+            <div class="box-header with-border" ng-class="{true:'bg-yellow',false:''}[item.is_purchased == 'purchased']">
+                <div class="user-block">
+                    <img class="img-circle" src="{{item.thumbnail}}" alt="User Image">
+                    <span class="username"><a href="#">{{item.name}}</a></span>
+                    <span class="description">Created at {{item.created_at|dateToISO|date :"fullDate"}}</span>
+                </div>
+                <div class="box-tools" ng-show="item.is_purchased == 'purchased'">
+                    <span class="pull-right-container" title="This item is purchased">
+                        <small class="label pull-right bg-green">
+                            PURCHASED <i class="fa fa-shopping-cart text-green"></i>
+                        </small>
+                    </span>
+                </div>
+            </div>
+            <div class="attachment-block clearfix box-body">
+                <img class="attachment-img" src="{{item.thumbnail}}" alt="Photo">
+                <div class="attachment-pushed">
+                    <div class="attachment-text">
+                        {{ item.description.substring(0,250)}}
+                        <a href="#">... more</a>
+                    </div>
+                    <!-- /.attachment-text -->
+                </div>
+            </div>
+            <div class="box-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>

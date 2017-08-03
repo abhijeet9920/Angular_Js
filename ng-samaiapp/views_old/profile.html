@@ -1,0 +1,240 @@
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="../../index2.html" class="logo">
+            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="http://ng-samaiapp/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                        <span class="hidden-xs">{{user.username}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="http://ng-samaiapp/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <p>
+                                    {{user.first_name}} {{user.last_name}}
+                                    <small>Member since {{user.created_at| dateToISO | date : "fullDate"}}</small>
+                                </p>
+                            </li>
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat" ng-click="logOut()">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="treeview">
+                    <a href="#/home"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                </li>
+                <li class="treeview active">
+                    <a href="#/profile"><i class="fa fa-user"></i> <span>Profile</span></a>
+                </li>
+                <li class="treeview">
+                    <a href="#/paid"><i class="fa fa-money"></i><span>All Paid Categories</span></a>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                User Profile
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">User profile</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="box box-primary">
+                        <div class="box-body box-profile">
+                            <img class="profile-user-img img-responsive img-circle" src="{{user.profile_pic}}" alt="User profile picture">
+                            <h3 class="profile-username text-center">{{user.first_name}} {{user.last_name}}</h3>
+                            <p class="text-muted text-center">Software Engineer</p>
+                            <ul class="list-group list-group-unbordered">
+                                <li class="list-group-item">
+                                    <b>Gender</b> <a class="pull-right">{{user.gender}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa fa-birthday-cake"></i> <b>DOB</b><a class="pull-right">{{user.dob|dateToISO|date:"fullDate"}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="fa fa-envelope"></i> <b>Email</b> <a class="pull-right">{{user.email}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">About Me</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                            <p class="text-muted">
+                                B.S. in Computer Science from the University of Tennessee at Knoxville
+                            </p>
+                            <hr>
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                            <p class="text-muted">Malibu, California</p>
+                            <hr>
+                            <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                            <p>
+                                <span class="label label-danger">UI Design</span>
+                                <span class="label label-success">Coding</span>
+                                <span class="label label-info">Javascript</span>
+                                <span class="label label-warning">PHP</span>
+                                <span class="label label-primary">Node.js</span>
+                            </p>
+                            <hr>
+                            <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+                            <li><a href="#transaction" data-toggle="tab">Transaction</a></li>
+                            <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+                            </div>
+                            <div class="tab-pane" id="transaction">
+                                <ul class="timeline timeline-inverse" ng-show="transaction.length > 0" ng-repeat="(index,key) in transaction|limitTo:4">
+                                    <li class="time-label">
+                                        <span class="bg-blue">{{key.created_at|dateToISO|date:"fullDate"}}</span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-money bg-blue"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"><i class="fa fa-clock-o"></i> {{key.created_at|dateToISO|date:"HH:mm"}}</span>
+                                            <h3 class="timeline-header">Transaction ID : {{key.transaction_id}}</h3>
+                                            <div class="timeline-body">
+                                                <p>{{key.remarks}}</p>
+                                                <p>{{key.currency}}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div ng-show="transaction.length==''">No transactions yet</div>
+                            </div>
+                            <div class="tab-pane" id="settings">
+                                <form class="form-horizontal" ng-submit="updateUser()" name="userform">
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">First Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="user.first_name" class="form-control" placeholder="First Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Last Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="user.last_name" class="form-control" placeholder="Last Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                                        <div class="col-sm-10">
+                                            {{user.email}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">Username</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="user.username" class="form-control" placeholder="Username" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">City</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="user.city" class="form-control" placeholder="City" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">State</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="user.state" class="form-control" placeholder="State" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">Country</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="user.country" class="form-control" placeholder="Country" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail" class="col-sm-2 control-label">Date Of Birth</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" ng-model="user.dob" class="form-control" placeholder="Date Of Birth" id="datepicker" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="submit" class="btn btn-danger" ng-disabled="userform.$invalid">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.3.8
+        </div>
+        <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+        reserved.
+    </footer>
+    <div class="control-sidebar-bg"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#datepicker').datepicker({
+            autoclose: true,
+            format
+        });
+    });
+</script>

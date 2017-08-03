@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Angular JS</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" type="image/png" href="http://ng-samaiapp/favicon.ico">
+
+        <link rel="stylesheet" href="http://ng-samaiapp/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="http://ng-samaiapp/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="http://ng-samaiapp/dist/css/divider.css">
+        <link rel="stylesheet" href="http://ng-samaiapp/dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+        <link rel="stylesheet" href="http://ng-samaiapp/plugins/datepicker/datepicker3.css">
+
+        <!-- -->
+        <script src="http://ng-samaiapp/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="http://ng-samaiapp/bootstrap/js/bootstrap.min.js"></script>
+        <script src="http://ng-samaiapp/plugins/datepicker/bootstrap-datepicker.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.0.7/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.js"></script>
+        
+        <script src="http://ng-samaiapp/js/route.js"></script>
+        <script src="http://ng-samaiapp/js/config.js"></script>
+        <script src="http://ng-samaiapp/js/profileController.js"></script>
+        <script src="http://ng-samaiapp/js/homeController.js"></script>
+        <script src="http://ng-samaiapp/js/paidController.js"></script>
+        <script src="http://ng-samaiapp/js/userController.js"></script>
+        <script src="http://ng-samaiapp/js/assetController.js"></script>
+        <style type="text/css">
+            input.ng-invalid{
+                border: 1px solid red;
+            }
+        </style>
+    </head>
+    <body ng-app="myApp" class="skin-blue sidebar-mini">
+        <div class="wrapper">
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="../../index2.html" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>A</b>LT</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>Admin</b>LTE</span>
+                </a>
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top">
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+                        <li class="treeview">
+                            <a href="#/home"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+                        <li class="treeview">
+                            <a href="#/profile"><i class="fa fa-user"></i> <span>Profile</span></a>
+                        </li>        
+                        <li class="treeview">
+                            <a href="#/assets"><i class="fa fa-money"></i><span>All Assets</span></a>
+                        </li>
+                        <li class="treeview">
+                            <a href="#/paid"><i class="fa fa-money"></i><span>All Paid Categories</span></a>
+                        </li>
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content">
+                    <div class="row">
+                        <ng-view></ng-view>
+                    </div>
+                </section>
+            </div>
+            <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 2.3.8
+                </div>
+                <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+                reserved.
+            </footer>
+            <div class="control-sidebar-bg"></div>
+        </div>
+    </body>
+    <script src="http://ng-samaiapp/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>    
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="http://ng-samaiapp/bootstrap/js/bootstrap.min.js"></script>
+    <script src="http://ng-samaiapp/plugins/knob/jquery.knob.js"></script>
+    <script src="http://ng-samaiapp/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="http://ng-samaiapp/plugins/fastclick/fastclick.js"></script>
+    <script src="http://ng-samaiapp/plugins/iCheck/icheck.js"></script>
+    <script src="http://ng-samaiapp/dist/js/app.min.js"></script>
+    <script src="http://ng-samaiapp/js/icheck.js"></script>
+    <script src="http://ng-samaiapp/plugins/fastclick/fastclick.js"></script>
+    <script src="http://ng-samaiapp/dist/js/app.min.js"></script>
+    <script src="http://ng-samaiapp/dist/js/demo.js"></script>
+</html>

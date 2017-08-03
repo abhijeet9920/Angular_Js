@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Google Map</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="css/viewport-bug-workaround.css" rel="stylesheet">
+        <link href="css/theme.css" rel="stylesheet">
+        <!-- -->
+        <script src="js/jquery-3.1.1.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/docs.min.js"></script>
+        <script src="js/angular.min.js"></script>
+        <style type="text/css">
+        	#mydiv {  
+			    position:absolute;
+			    top:0;
+			    left:0;
+			    width:100%;
+			    height:100%;
+			    z-index:1000;
+			    background-color:grey;
+			    opacity: .8;
+			}
+			.ajax-loader {
+			    position: absolute;
+			    left: 50%;
+			    top: 50%;
+			    margin-left: -32px; /* -1 * image width / 2 */
+			    margin-top: -32px;  /* -1 * image height / 2 */
+			    display: block;     
+			}
+        </style>
+    </head>
+    <body>
+    	<div ng-app="gmap" ng-controller="mapController">
+	        <nav class="navbar navbar-inverse navbar-fixed-top">
+	            <div class="container">
+	                <div class="navbar-header">
+	                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	                    <span class="sr-only">Toggle navigation</span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    <span class="icon-bar"></span>
+	                    </button>
+	                </div>
+	            </div>
+	        </nav>
+	        <!-- Main jumbotron for a primary marketing message or call to action -->
+	        <div class="jumbotron" ng-init="loadCountry()">
+	        	<div class="container">
+	        		<div class="form-group">
+		            	<label for="country">Country :</label>
+		            	<my-countries ng-repeat="st in countries" value="{{st}}" data="{{st.name}}"></my-countries>
+		            	<!-- <select class="form-control" ng-model="selected_country">
+		            	</select> -->
+		            </div>
+		            <my-countries></my-countries>
+		            <div class="form-group" ng-init="loadStates()">
+		            	<label for="state">State :</label>
+		            	<select class="form-control" ng-model="selected_state" ng-change="loadCities()">
+		            		<option ng-repeat="st in state" value="{{st.ID}}">{{st.Name}}</option>
+		            	</select>
+		            </div>
+		            <div class="form-group">
+		            	<label for="city">City :</label>
+		                <select class="form-control" ng-model="selected_city" ng-change="loadMap()">
+		            		<option ng-repeat="ct in city" value="{{ct.city}}">{{ct.city}}</option>
+		            	</select>
+		            </div>
+		        </div>
+	        </div>
+	        <div class="container">
+	        	<div id="mydiv" ng-hide="isloaded">
+				    <img src="images/loading16.gif" class="ajax-loader"/>
+				</div>
+	            <!-- Example row of columns -->
+	            <!-- <div id="map_canvas" ng-controller="mainCtrl">
+      				<ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+ 				</div> -->
+	            <hr>
+	            <footer>
+	                <p>&copy; 2016 Company, Inc.</p>
+	            </footer>
+	        </div>
+	    </div>
+	    <script>
+	    	var gmap = angular.module('gmap', []);
+	    	gmap.directive('myCountries', ['$http','$rootScope',function($http, $rootScope){
+	    		return {
+	    			restrict:'E',
+	    			scope:{
+	    				value: '=data',
+	    				data: '=country',
+	    				countries: '= countries'
+	    			},
+      				template: '<span name="country" ng-include="country">Hello {{country}}</span>'
+	    		}
+	    	}]);
+	    	gmap.controller('mapController', function($scope, $http){
+	    		$scope.isloaded = true;
+	    		//$scope.data = "Abhijeet";
+	    		$scope.loadCountry = function(){
+	    			$scope.isloaded = false;
+					$http({
+						method : 'GET',
+						url: 'https://restcountries.eu/rest/v1/all'
+					}).then(function successCallback(success){
+						$scope.isloaded = true;
+						$scope.countries = success.data;
+					});
+				}
+	    		$scope.loadStates = function(){
+	    			$scope.isloaded = false;
+	    			$http({
+					  	method: 'GET',
+					  	url: 'https://www.whizapi.com/api/v2/util/ui/in/indian-states-list?project-app-key=jjqxh8wincbkbh41n62awbm7'
+					}).then(
+						function successCallback(success) {
+							$scope.isloaded = true;
+							$scope.state = success.data.Data;
+							//console.log(success.data.Data);
+						},
+						function errorCallback(error) {
+							alert("Oops!! API missing");
+						}
+					)
+	    		}
+	    		$scope.loadCities = function(){
+	    			$scope.isloaded = false;
+	    			$http({
+	    				method: "GET",
+	    				url: "https://www.whizapi.com/api/v2/util/ui/in/indian-city-by-state?project-app-key=jjqxh8wincbkbh41n62awbm7&stateid="+$scope.selected_state,
+	    			}).then(
+	    				function successCallback(success){
+	    					$scope.isloaded = true;
+	    					$scope.city = success.data.Data;
+	    					//console.log(success.data.Data);
+	    				},
+	    				function errorCallback(error){
+	    					alert('Oops!! API missing');
+	    				}
+	    			)
+	    		}
+	    		//$scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+	    		$scope.loadMap = function(){
+	    			$scope.isloaded = false;
+	    			$http({
+	    				method: 'GET',
+	    				url: 'http://maps.googleapis.com/maps/api/geocode/json?address='+$scope.selected_city,
+	    			}).then(
+	    				function successCallback(success){
+	    					$scope.isloaded = true;
+	    					console.log(success.data.results);
+	    				},
+	    				function errorCallback(error){
+	    					alert('Oops!! API missing');
+	    				}
+	    			)
+	    		}
+	    	});
+	    </script>
+    </body>
+</html>

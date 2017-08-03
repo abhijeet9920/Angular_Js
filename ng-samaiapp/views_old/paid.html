@@ -1,0 +1,144 @@
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="../../index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>A</b>LT</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Admin</b>LTE</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="http://ng-samaiapp/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                        <span class="hidden-xs">{{user.username}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="http://ng-samaiapp/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <p>
+                                    {{user.first_name}} {{user.last_name}}
+                                    <small>Member since {{user.created_at| dateToISO | date : "fullDate"}}</small>
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <li class="user-body">
+                                <div class="row">
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Followers</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Sales</a>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <a href="#">Friends</a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat" ng-click="logOut()">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li class="treeview">
+                    <a href="#/home"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                </li>
+                <li class="treeview">
+                    <a href="#/profile"><i class="fa fa-user"></i> <span>Profile</span></a>
+                </li>        
+                <li class="treeview active">
+                    <a href="#/paid"><i class="fa fa-money"></i><span>All Paid Categories</span></a>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                All Paid Items
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Examples</a></li>
+                <li class="active">All Paid Items</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <div ng-repeat="item in paid.data">
+                    <div class="col-md-6">
+                        <div class="box box-widget">
+                            <div class="box-header with-border" ng-class="{true:'bg-yellow',false:''}[item.is_purchased == 'purchased']">
+                                <div class="user-block">
+                                    <img class="img-circle" src="{{item.thumbnail}}" alt="User Image">
+                                    <span class="username"><a href="#">{{item.name}}</a></span>
+                                    <span class="description">Created at {{item.created_at|dateToISO|date :"fullDate"}}</span>
+                                </div>
+                                <div class="box-tools" ng-show="item.is_purchased == 'purchased'">
+                                    <span class="pull-right-container" title="This item is purchased">
+                                        <small class="label pull-right bg-green">
+                                            PURCHASED <i class="fa fa-shopping-cart text-green"></i>
+                                        </small>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="attachment-block clearfix box-body">
+                                <img class="attachment-img" src="{{item.thumbnail}}" alt="Photo">
+                                <div class="attachment-pushed">
+                                    <div class="attachment-text">
+                                        {{ item.description.substring(0,250)}}
+                                        <a href="#">... more</a>
+                                    </div>
+                                    <!-- /.attachment-text -->
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.3.8
+        </div>
+        <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+        reserved.
+    </footer>
+    <div class="control-sidebar-bg"></div>
+</div>

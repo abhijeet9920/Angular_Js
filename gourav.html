@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<script src="https://code.angularjs.org/1.6.1/angular.min.js"></script>  
+<style>
+form {
+    border: 3px solid #f1f1f1;
+    width: 50%;
+    margin-left: 25%;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input.ng-invalid.ng-touched {
+    border-color: #ff0039;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+img.avatar {
+    width: 20%;
+    border-radius: 30%;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+</style>
+<body ng-app="myApp">
+
+<h2>Login Form</h2>
+
+<form name="myForm" ng-model = "myy">
+  <div class="imgcontainer">
+    <img src="images/indian.jpg" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" ng-model="uname" required checklen > 
+    <span ng-show="myForm.username.$error.required || myForm.username.$error.length">Not a valid user name</span><br>
+    <label><b>Password</b></label>
+    <input ng-model ="passwrd" type="password" placeholder="Enter Password" name="passwrd" required>
+    <span ng-show="myForm.passwrd.$error.required">Not a valid password</span><br>
+    <input type="submit" name="submit" value="Login" ng-disabled="myForm.$invalid">
+    <input type="checkbox" checked="checked"> Remember me
+    <!-- <button ng-model="disable" type="submit" ng-disabled = "myFrom.$invalid">Login</button> -->
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
+</form>
+</body>
+</html>
+<script>
+var myModule = angular.module('myApp',[]);
+myModule.directive('checklen',function(){
+return{
+    require:'ngModel',
+    link: function(scope, element, attr, Ctrl) {
+        function myValidation(value){
+            if(value.length>5){
+                //alert(value.length);
+                Ctrl.$setValidity('length', true);
+            }else{
+                Ctrl.$setValidity('length', false);
+            }
+            return value;
+        }
+        Ctrl.$parsers.push(myValidation);
+    }
+};
+});
+</script>

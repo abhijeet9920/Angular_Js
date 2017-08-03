@@ -1,0 +1,21 @@
+<div class="row" ng-hide="iflogin">
+	<form name="loginform" method="POST" ng-submit="postLogin()">
+		<div class="form-group">
+		    <label for="username">Username :</label>
+		    <input type="text" class="form-control" id="username" ng-model="username" required validatenumber>
+		</div>
+		<div class="form-group">
+		    <label for="password">Password :</label>
+		    <input type="password" class="form-control" id="password" ng-model="password" required validatenumber>
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-success" ng-disabled="loginform.$invalid" value="Login">
+		</div>
+	</form>
+</div>
+<div class="row" ng-show="iflogin">
+	<div>
+		<p>{{key}}</p>
+		<button class="btn btn-primary" ng-click="loggout()">Logout</button>
+	</div>
+</div>
